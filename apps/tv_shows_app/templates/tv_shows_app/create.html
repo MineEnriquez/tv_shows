@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tv_shows_app/css/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .mybody {
+            background-image: url("{% static 'tv_shows_app/img/NinjaPurple.png' %}");
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+    <title>Create</title>
+</head>
+
+<body class="mybody">
+    <div class="wrapper">
+        <a class="fixedTopRight accessible" href="javascript:history.back()">Go Back</a>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <h1>Add a New Show</h1>
+
+        <form action="/shows/create" method="POST">
+            {%csrf_token%}
+            <h4>Title:</h4> <input type="text" name="title" class="sidetoside">
+
+            <table class="sidetoside">
+                <tr>
+                    <td>
+                        <h4>Network</h4>
+                        <input type="text" name="network" class="sidebyside">
+                    </td>
+                    <td>
+                        <h4>Release Date:</h4>
+                        <input type="date" name="release_date" value="">
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <h4>Description:</h4>
+                <textarea name="desc" id="desc" class="sidetoside" cols="50" rows="5"></textarea>
+
+            </div>
+            <input type="submit" value="Create" class="btn btn-primary btn-sm floatcenter">
+        </form>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tv_shows_app/css/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .mybody {
+            background-image: url("{% static 'tv_shows_app/img/NinjaPurple.png' %}");
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+    <title>Update</title>
+</head>
+
+<body class="mybody">
+    <div class="wrapper">
+        <a class="fixedTopRight accessible" href="/shows">Go Back</a>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <h1>Edit</h1>
+
+        <form action="/shows/{{show.id}}/update" method="POST">
+            {%csrf_token%}
+            <h4>Title:</h4> <input type="text" name="title" class="sidetoside" value="{{show.title}}">
+
+            <table class="sidetoside">
+                <tr>
+                    <td>
+                        <h4>Network</h4>
+                        <input type="text" name="network" class="sidebyside" value="{{show.network}}">
+                    </td>
+                    <td>
+                        <h4>Release Date:</h4>
+                        <input type="date" name="release_date" value="{{release_date}}">
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <h4>Description:</h4>
+                <textarea name="desc" id="desc" class="sidetoside" cols="50" rows="5">{{show.desc}}</textarea>
+
+            </div>
+            <input type="submit" value="Update" class="btn btn-primary btn-sm floatcenter">
+        </form>
+        <a class="floatcenter accessible" href="/shows/{{show.id}}">Go to Show</a>
+    </div>
+</body>
+
+</html>
